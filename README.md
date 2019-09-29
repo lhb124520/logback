@@ -1,8 +1,29 @@
-# logback
-logback日志框架demo
+## Java日志框架logback使用
 
-# 依赖
-        <dependency>
+## 介绍
+
+Logback是由log4j创始人设计的又一个开源日志组件。
+
+logback当前分成三个模块：logback-core,logback- classic和logback-access。logback-core是其它两个模块的基础模块。
+logback-classic是log4j的一个 改良版本。
+此外logback-classic完整实现SLF4J API，
+使你可以很方便地更换成其它日志系统如log4j或JDK14 Logging。
+logback-access访问模块与Servlet容器集成提供通过Http来访问日志的功能。
+
+
+## slf4j和log4j以及logback的联系和区别
+1、slf4j是java的一个日志门面，实现了日志框架一些通用的api，不能单独使用。log4j和logback是具体的日志框架。
+
+2、log4j和logback可以单独的使用，也可以绑定slf4j一起使用。
+
+## 官方文档
+[https://logback.qos.ch/manual/configuration.html](https://logback.qos.ch/manual/configuration.html)
+
+
+## maven仓库依赖
+
+
+       <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
@@ -14,7 +35,22 @@ logback日志框架demo
             <version>1.7.25</version>
         </dependency>
 
-# 配置logback.xml
+        <!--可选-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <!--可选-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+## 配置logback.xml
+
+```
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
 
@@ -57,15 +93,16 @@ logback日志框架demo
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>
+```
 
-# additivity
-additivity的作用在于 children-logger是否使用 rootLogger配置的appender进行输出。
+## 使用logback
 
-false：表示只用当前logger的appender-ref。
+```
+package com.demo;
 
-true：表示当前logger的appender-ref和rootLogger的appender-ref都有效。
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-# 使用
 public class MyApp1 {
     private final static Logger logger = LoggerFactory.getLogger(MyApp1.class);
 
@@ -78,4 +115,12 @@ public class MyApp1 {
 
     }
 }
+```
+
+## 源码
+GitHub：[https://github.com/lhb124520/logback](https://github.com/lhb124520/logback)
+
+码云：[https://gitee.com/lhblearn/logback](https://gitee.com/lhblearn/logback)
+
+
 
